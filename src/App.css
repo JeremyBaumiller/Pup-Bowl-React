@@ -1,0 +1,63 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .player-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .player-card img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+   }
+}
+  
+/* Top row */
+.top-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+/* Middle row */
+.middle-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Bottom row */
+.bottom-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+body {
+  background-image: url("puppy_bowl.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
+.backgroundImage {
+  background-image: url('./components/puppy_bowl.jpg');
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+}
