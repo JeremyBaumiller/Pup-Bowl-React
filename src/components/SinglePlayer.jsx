@@ -1,31 +1,28 @@
-import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import PlayerCard from './PlayerCard'
-import { fetchSinglePlayer } from '../API'
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { fetchAllPlayers } from "../API/index";
 
+const SinglePlayer = () => {
+  const { id } = useParams();
+  const [player, setPlayer] = useState(null);
 
-function SinglePlayer() {
-    const [player, setPlayer] = useState(null)
-    const { playerId } = useParams();
-  
-    useEffect(() => {
-      const getPlayerById = async () => {
-        const fetchedPlayer = await fetchSinglePlayer(playerId)
-        setPlayer(fetchedPlayer);
-      }
-      getPlayerById()
-    }, [playerId]);
+  useEffect(() => {
+    const getPlayer = async () => {
+      const players = await fetchAllPlayers();
+      const singlePlayer = players.find((p) => p.id === parseInt(id));
+      setPlayer(singlePlayer);
+    };
+    getPlayer();
+  }, [id]);
 
-      if (!player) {
-        return <h3>404: Player not found</h3>
+  if (!player) return <div>Loading...</div>;
 
-      }
-        
-        return ( 
-        <PlayerCard key={player.id} player={player} />
-      
-      )
-    }
+  return (
+    <div>
+      <h2>{player.name}</h2>
+      <p>{player.breed}</p>
+    </div>
+  );
+};
 
-
-export default SinglePlayer
+export default SinglePlayer;

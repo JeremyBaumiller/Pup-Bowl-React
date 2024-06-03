@@ -1,35 +1,30 @@
-import { useState, useEffect } from 'react'
-import PlayerCard from './PlayerCard'
-import { fetchAllPlayers } from '../API'
+import { useState, useEffect } from "react";
+import { fetchAllPlayers } from "../API";
+import { useNavigate } from "react-router-dom";
+const AllPlayers = () => {
+  const [players, setPlayers] = useState([]);
+  const navigate = useNavigate();
 
-function AllPlayers() {
-    const [players, setPlayers] = useState([])
-    const [filteredPlayers, setFilteredPlayers] = useState([])
-  
-    useEffect(() => {
-      const getPlayers = async () => {
-        const playersFromAPI = await fetchAllPlayers()
-        setPlayers(playersFromAPI)
-        setFilteredPlayers(players)
-    }
-      getPlayers()
-    }, [])
+  useEffect(() => {
+    const getPlayers = async () => {
+      const players = await fetchAllPlayers();
+      setPlayers(players);
+    };
+    getPlayers();
+  }, []);
 
-const onInputChange = (event) => {
-    //console.log(event.target.value);
-    const searchTerm = event.target.value.toLowerCase()
-    const filteredPlayers = players.filter(player => player.name.toLowerCase().includes(searchTerm))
-
-    setFilteredPlayers(filteredPlayers);
-}
-
-    return (
-        <>
-        <input onChange={onInputChange} />
-        {filteredPlayers.map(player => <PlayerCard key={player.id} player={player} />)}
-        </>
-      )
-    }
-
-
-export default AllPlayers
+  return (
+    <div>
+      {players.map((player) => (
+        <div key={player.id}>
+          <h4>{player.name}</h4>
+          <img src={player.imageUrl}></img>
+          <button onClick={() => navigate(`/players/${player.id}`)}>
+            View Player
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+};
+export default AllPlayers;
